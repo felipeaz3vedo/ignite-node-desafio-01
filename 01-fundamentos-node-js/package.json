@@ -10,6 +10,10 @@
   "author": "Felipe de Azevedo Pessoa",
   "license": "ISC",
   "devDependencies": {
+    "eslint": "^8.40.0",
     "nodemon": "^2.0.22"
+  },
+  "dependencies": {
+    "eslint-config-prettier": "^8.8.0"
   }
 }
