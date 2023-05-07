@@ -5,8 +5,11 @@
   "description": "Ignite first challenge for node.js course.",
   "main": "server.js",
   "scripts": {
-    "dev": "node --watch src/server.js"
+    "dev": "nodemon src/server.js"
   },
   "author": "Felipe de Azevedo Pessoa",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
 }
