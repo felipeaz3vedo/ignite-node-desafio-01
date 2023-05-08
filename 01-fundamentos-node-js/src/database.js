@@ -45,6 +45,9 @@ export class Database {
         ...task,
         title: data.title || task.title,
         description: data.description || task.description,
+        completedAt: data.changeTaskState
+          ? !task.completedAt
+          : task.completedAt,
         updatedAt: new Date()
       }
 

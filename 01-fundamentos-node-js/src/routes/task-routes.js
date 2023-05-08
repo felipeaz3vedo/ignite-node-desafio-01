@@ -48,6 +48,19 @@ export const taskRoutes = [
     }
   },
   {
+    method: 'PATCH',
+    path: buildRoutePath('/tasks/:id/complete'),
+    handler: (req, res) => {
+      const { id } = req.params
+
+      const changeTaskState = true
+
+      database.update('tasks', id, { changeTaskState })
+
+      return res.writeHead(200).end()
+    }
+  },
+  {
     method: 'DELETE',
     path: buildRoutePath('/tasks/:id'),
     handler: (req, res) => {
