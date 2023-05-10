@@ -47,9 +47,11 @@ export const taskRoutes = [
       const { id } = req.params
       const { title, description } = req.body
 
-      database.update('tasks', id, { title, description })
+      const response = database.update('tasks', id, { title, description })
 
-      return res.writeHead(200).end()
+      if (response === 'Success') return res.writeHead(200).end()
+
+      return res.writeHead(400).end(JSON.stringify({ error: response }))
     }
   },
   {
@@ -62,7 +64,9 @@ export const taskRoutes = [
 
       database.update('tasks', id, { changeTaskState })
 
-      return res.writeHead(200).end()
+      if (response === 'Success') return res.writeHead(200).end()
+
+      return res.writeHead(400).end(JSON.stringify({ error: response }))
     }
   },
   {
@@ -71,9 +75,11 @@ export const taskRoutes = [
     handler: (req, res) => {
       const { id } = req.params
 
-      database.delete('tasks', id)
+      const response = database.delete('tasks', id)
 
-      return res.writeHead(204).end()
+      if (response === 'Success') return res.writeHead(204).end()
+
+      return res.writeHead(400).end(JSON.stringify({ error: response }))
     }
   }
 ]

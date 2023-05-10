@@ -44,6 +44,7 @@ export class Database {
   }
 
   update(table, id, data) {
+    console.log(`table: ${table}, id: ${id}, data: ${data}`)
     const rowIndex = this.#database[table].findIndex((data) => data.id === id)
 
     if (rowIndex > -1) {
@@ -60,7 +61,11 @@ export class Database {
       }
 
       this.#persist()
+
+      return 'Success'
     }
+
+    return 'Invalid ID'
   }
 
   delete(table, id) {
@@ -70,6 +75,10 @@ export class Database {
       this.#database[table].splice(rowIndex, 1)
 
       this.#persist()
+
+      return 'Success'
     }
+
+    return 'Invalid ID'
   }
 }
