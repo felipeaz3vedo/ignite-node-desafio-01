@@ -12,7 +12,7 @@ export const taskRoutes = [
     handler: (req, res) => {
       const { search } = req.query
 
-      const tasks = database.select(
+      const tasks = database.selectAll(
         'tasks',
         search ? { title: search, description: search } : null
       )
@@ -37,7 +37,11 @@ export const taskRoutes = [
 
       database.insert('tasks', task)
 
-      return res.writeHead(201).end()
+      return res.writeHead(201).end(
+        JSON.stringify({
+          msg: 'Task created Successfully.'
+        })
+      )
     }
   },
   {
@@ -45,13 +49,19 @@ export const taskRoutes = [
     path: buildRoutePath('/tasks/:id'),
     handler: (req, res) => {
       const { id } = req.params
+
       const { title, description } = req.body
 
       const response = database.update('tasks', id, { title, description })
 
-      if (response === 'Success') return res.writeHead(200).end()
+      if (response === 'Success')
+        return res.writeHead(200).end(
+          JSON.stringify({
+            msg: 'Task updated successfully.'
+          })
+        )
 
-      return res.writeHead(400).end(JSON.stringify({ error: response }))
+      return res.writeHead(404).end(JSON.stringify({ error: response }))
     }
   },
   {
@@ -60,13 +70,22 @@ export const taskRoutes = [
     handler: (req, res) => {
       const { id } = req.params
 
-      const changeTaskState = true
+      const task = database.selectOne('tasks', id)
 
-      database.update('tasks', id, { changeTaskState })
+      let completedAt = ''
 
-      if (response === 'Success') return res.writeHead(200).end()
+      task.completedAt ? (completedAt = null) : (completedAt = new Date())
 
-      return res.writeHead(400).end(JSON.stringify({ error: response }))
+      const response = database.update('tasks', id, { completedAt })
+
+      if (response === 'Success')
+        return res.writeHead(200).end(
+          JSON.stringify({
+            msg: 'Task updated successfully.'
+          })
+        )
+
+      return res.writeHead(404).end(JSON.stringify({ error: response }))
     }
   },
   {
@@ -77,9 +96,14 @@ export const taskRoutes = [
 
       const response = database.delete('tasks', id)
 
-      if (response === 'Success') return res.writeHead(204).end()
+      if (response === 'Success')
+        return res.writeHead(200).end(
+          JSON.stringify({
+            msg: 'Task deleted successfully.'
+          })
+        )
 
-      return res.writeHead(400).end(JSON.stringify({ error: response }))
+      return res.writeHead(404).end(JSON.stringify({ error: response }))
     }
   }
 ]

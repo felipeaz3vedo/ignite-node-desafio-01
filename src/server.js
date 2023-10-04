@@ -30,4 +30,4 @@ const server = http.createServer(async (req, res) => {
   return res.writeHead(404).end()
 })
 
-server.listen(process.env.PORT)
+server.listen(3333)

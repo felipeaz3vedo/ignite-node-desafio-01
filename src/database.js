@@ -19,7 +19,7 @@ export class Database {
     fs.writeFile(databasePath, JSON.stringify(this.#database))
   }
 
-  select(table, search) {
+  selectAll(table, search) {
     let data = this.#database[table] ?? []
 
     if (search) {
@@ -31,6 +31,14 @@ export class Database {
     }
 
     return data
+  }
+
+  selectOne(table, id) {
+    let data = this.#database[table] ?? []
+
+    const [response] = data.filter((field) => field.id === id)
+
+    return response
   }
 
   insert(table, data) {
@@ -54,9 +62,7 @@ export class Database {
         ...task,
         title: data.title || task.title,
         description: data.description || task.description,
-        completedAt: data.changeTaskState
-          ? !task.completedAt
-          : task.completedAt,
+        completedAt: data.completedAt,
         updatedAt: new Date()
       }
 
@@ -65,7 +71,7 @@ export class Database {
       return 'Success'
     }
 
-    return 'Invalid ID'
+    return 'Resource not found.'
   }
 
   delete(table, id) {
@@ -79,6 +85,6 @@ export class Database {
       return 'Success'
     }
 
-    return 'Invalid ID'
+    return 'Resource not found.'
   }
 }
