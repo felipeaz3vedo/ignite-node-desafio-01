@@ -1,6 +1,6 @@
 # IGNITE - DESAFIO: 01 - TRILHA: Node.js
 
-# Inicialização do projeto
+## Inicialização do projeto
 
 - Para iniciar o projeto basta rodar o comando abaixo no terminal:
   `yarn dev`
@@ -11,10 +11,13 @@
 
 - [x] - Criação de task em um in memory database;
 - [x] - Listagem de todas as tasks;
+- [x] - Possibilidade de filtrar as taks pelo title e/ou description;
 - [x] - Atualização de uma task pelo id;
 - [x] - Remover uma task pelo id;
-- [x] - Marcar pelo id uma task como completa;
+- [x] - Marcar pelo id, uma task como completa;
 - [x] - Inserção de tasks no database através de um arquivo CSV.
+
+*OBS*: Verificação se o id passado nas rotas PUT, PATCH e DELETE pertecem de fato a uma task armazenada no database;
 
 ## Rotas
 
